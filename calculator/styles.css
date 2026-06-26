@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #1e1e2f;
+    background: #575357;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -18,7 +18,9 @@ body {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    width: 320px;
+
+    width: 90%;
+    max-width: 500px;
 }
 
 .display {
@@ -83,8 +85,20 @@ button:hover {
     background: #ff9500;
 }
 
+.delete {
+    background: #dc3545;
+}
+
 .operator:hover {
     background: #e68a00;
+}
+
+.bracket:hover {
+    background: #e68a00;
+}
+
+.delete:hover {
+    background: #c82333;
 }
 
 .equals {

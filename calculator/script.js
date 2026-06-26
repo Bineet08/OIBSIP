@@ -20,6 +20,7 @@ function render() {
     historyEl.textContent = state.history;
     historyEl.classList.add('history--visible');
   } else {
+    historyEl.textContent = '';
     historyEl.classList.remove('history--visible');
   }
 }
@@ -42,7 +43,7 @@ function formatResult(num) {
 
 function calculate(expression) {
   try {
-    if (!/^(?:[0-9+\-*/.\s×÷()%]|sqrt)+$/.test(expression)) {
+    if (!/^(?:[0-9eE+\-*/.\s×÷()%]|sqrt)+$/.test(expression)) {
       throw new Error('Invalid expression');
     }
     const safeExpr = toEvalString(expression);
@@ -146,8 +147,6 @@ function handleEquals() {
 
   let fullExpression = state.history + state.current;
 
-  if (!fullExpression.trim()) return;
-
   const openCount = (fullExpression.match(/\(/g) || []).length;
   const closeCount = (fullExpression.match(/\)/g) || []).length;
   if (openCount > closeCount) {
@@ -169,7 +168,13 @@ function handleClear() {
 }
 
 function handleDelete() {
-  if (state.justEvaluated) return;
+  if (state.justEvaluated) {
+    state.current = state.current.length > 1 ? state.current.slice(0, -1) : '0';
+    state.history = '';
+    state.justEvaluated = false;
+    render();
+    return;
+  }
   state.current = state.current.length > 1 ? state.current.slice(0, -1) : '0';
   render();
 }
@@ -179,6 +184,7 @@ function handleDelete() {
 keys.addEventListener('click', (e) => {
   const button = e.target.closest('button');
   if (!button) return;
+
   button.blur();
 
   const { number, operator, action } = button.dataset;
@@ -200,11 +206,11 @@ document.addEventListener('keydown', (e) => {
   else if (e.key === '*') handleOperator('×');
   else if (e.key === '/') handleOperator('÷');
   else if (e.key === 'Enter' || e.key === '=') {
-    e.preventDefault();
+    e.preventDefault(); // stop a focused button from re-activating / any form submit
     handleEquals();
   }
   else if (e.key === 'Backspace') {
-    e.preventDefault();
+    e.preventDefault(); // with no text input focused, Backspace otherwise navigates back
     handleDelete();
   }
   else if (e.key === 'Escape') handleClear();
