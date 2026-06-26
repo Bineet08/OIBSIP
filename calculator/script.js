@@ -1,8 +1,35 @@
-// ---------- Element references ----------
-
 const historyEl = document.getElementById('history');
 const currentEl = document.getElementById('current');
 const keys = document.querySelector('.keys');
+const themeToggle = document.getElementById('theme-toggle');
+
+function applyTheme(theme) {
+  const isLight = theme === 'light';
+  document.body.classList.toggle('light-theme', isLight);
+  themeToggle.textContent = isLight ? '☀️' : '🌙';
+}
+ 
+function initTheme() {
+  let saved = null;
+  try {
+    saved = localStorage.getItem('calculator-theme');
+  } catch (err) {
+  }
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  applyTheme(saved || (prefersLight ? 'light' : 'dark'));
+}
+ 
+themeToggle.addEventListener('click', () => {
+  const isLight = document.body.classList.contains('light-theme');
+  const next = isLight ? 'dark' : 'light';
+  applyTheme(next);
+  try {
+    localStorage.setItem('calculator-theme', next);
+  } catch (err) {
+  }
+});
+ 
+initTheme();
 
 // ---------- State ----------
 const state = {

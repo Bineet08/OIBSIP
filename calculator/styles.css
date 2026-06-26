@@ -11,6 +11,82 @@ body {
     align-items: center;
     background: #575357;
     font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    height: auto;
+    width: auto;
+    cursor: pointer;
+    padding: 0;
+    color: inherit;
+    transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+    background: transparent;
+    transform: scale(1.1);
+}
+
+.light-theme {
+    background: #e9ecef;
+}
+
+.light-theme .calculator {
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.light-theme .display {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.light-theme button {
+    background: #f1f3f5;
+    color: #212529;
+}
+
+.light-theme button:hover {
+    background: #e2e6ea;
+}
+
+.light-theme .operator,
+.light-theme .bracket {
+    background: #ff9500;
+    color: white;
+}
+
+.light-theme .operator:hover {
+    background: #e68a00;
+}
+
+.light-theme .bracket:hover {
+    background: #e68a00;
+}
+
+.light-theme .delete {
+    background: #dc3545;
+    color: white;
+}
+
+.light-theme .delete:hover {
+    background: #c82333;
+}
+
+.light-theme .equals {
+    background: #28a745;
+    color: white;
+}
+
+.light-theme .equals:hover {
+    background: #218838;
 }
 
 .calculator {
